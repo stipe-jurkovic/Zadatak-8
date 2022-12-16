@@ -117,17 +117,17 @@ int switchCase(Position *Padr, int choice) {
 	case 3:
 		break;
 	case 4:
-		printf("\tInorder ispis: ");
+		printf("\tInorder ispis:  ");
 		printTreeinorder(P);
 		printf("\n");
 		break;
 	case 5:
-		printf("\tPreorder ispis: ");
+		printf("\tPreorder ispis:  ");
 		printTreepreorder(P);
 		printf("\n");
 		break;
 	case 6:
-		printf("\tPostorder ispis: ");
+		printf("\tPostorder ispis:  ");
 		printTreepostorder(P);
 		printf("\n");
 		break;
