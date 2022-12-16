@@ -121,6 +121,7 @@ int switchCase(Position *Padr, int choice) {
 	case 0 : 
 		break;
 	case 1:
+		printf("\tEnter the value of the node:    ");
 		if (!getInput(&val)) {
 			*Padr = newNode(P, val);
 		}
@@ -133,6 +134,7 @@ int switchCase(Position *Padr, int choice) {
 	case 3:
 		val = 0;
 
+		printf("\tEnter the value of the node:    ");
 		if (!getInput(&val)) 
 		{
 			findNode(P, val, 0);
@@ -236,7 +238,6 @@ int getInput(int *val)
 	char input[MAX_NUMBER_INT] = "\0";
 	memset(input, 0, MAX_NUMBER_INT);
 
-	printf("\tEnter the value of the node:    ");
 	fgets(input, sizeof(input), stdin);
 	
 	if (sscanf(input, " %i", val) == 1) {
