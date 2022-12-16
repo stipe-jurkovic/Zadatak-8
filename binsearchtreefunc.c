@@ -12,6 +12,11 @@ int initNode(Position P)
 	P->left=NULL;
 	return PROGRAM_SUCCESS;
 }
+int initStog(Poz S) {
+	S->adr = NULL;
+	S->next = NULL;
+	return PROGRAM_SUCCESS;
+}
 Position newNode(Position P, int val) 
 {
 	Position Q;
@@ -19,7 +24,7 @@ Position newNode(Position P, int val)
 	if (Q == NULL)
 	{
 		printf("Insufficient ram space!");
-		return PROGRAM_FAIL;
+		return P;
 	}
 	initNode(Q);
 	Q->value = val;
@@ -68,6 +73,21 @@ int printTreepostorder(Position P) {
 	printNode(P);
 	return PROGRAM_SUCCESS;
 }
+int printTreelevelorder(Position P) {
+	Poz stack;
+	stack = malloc(sizeof(Stog));
+	initStog(stack);
+	if (stack == NULL) {
+		printf("Insufficient ram space!\n");
+		return PROGRAM_FAIL;
+	}
+
+	pushtree(stack, P);
+	push(stack, P);
+	printStack(stack);
+	free(stack);
+	return PROGRAM_SUCCESS;
+}
 int printMenu() {
 
 	printf("\n");
@@ -93,8 +113,6 @@ int printMenu() {
 int switchCase(Position *Padr, int choice) {
 	int val = 0;
 	Position P;
-	char input [MAX_NUMBER_INT] = "\0";
-	memset(input, 0, MAX_NUMBER_INT);
 	P = *Padr;
 
 	switch (choice)
@@ -103,9 +121,7 @@ int switchCase(Position *Padr, int choice) {
 	case 0 : 
 		break;
 	case 1:
-		printf("\tEnter the value of the node:    ");
-		fgets(input, sizeof(input), stdin);
-		if (sscanf(input," %i", &val) == 1) {
+		if (!getInput(&val)) {
 			*Padr = newNode(P, val);
 		}
 		else {
@@ -115,6 +131,15 @@ int switchCase(Position *Padr, int choice) {
 	case 2:
 		break;
 	case 3:
+		val = 0;
+
+		if (!getInput(&val)) 
+		{
+			findNode(P, val, 0);
+		}
+		else {
+			printf("Incorrect input!");
+		}
 		break;
 	case 4:
 		printf("\tInorder ispis:  ");
@@ -132,9 +157,90 @@ int switchCase(Position *Padr, int choice) {
 		printf("\n");
 		break;
 	case 7:
+		printf("\tPostorder ispis:  ");
+		printTreelevelorder(P);
+		printf("\n");
 		break;
 	case 8:
 		break;
 	}
 	return choice;
+}
+int push(Poz stack, Position P)
+{
+	if (P == NULL) {
+		return PROGRAM_FAIL;
+	}
+	Poz Q;
+	Q = malloc(sizeof(Stog));
+	if (Q == NULL)
+	{
+		return PROGRAM_FAIL;
+	}
+	initStog(Q);
+
+	Q->next = stack->next;
+	stack->next = Q;
+	Q->adr = P;
+
+	return PROGRAM_SUCCESS;
+}
+int pushtree(Poz stack, Position P) {
+	if (P == NULL) {
+		return PROGRAM_SUCCESS;
+	}
+	pushtree(stack, P->right);
+	pushtree(stack, P->left);
+	push(stack, P->right);
+	push(stack, P->left);
+	return PROGRAM_SUCCESS;
+}
+Position pop(Poz stack)
+{
+	Poz temp;
+	Position adr;
+	adr = NULL; temp = NULL;
+
+	temp = stack->next;
+	stack->next = temp->next;
+	adr = temp->adr;
+	initStog(temp);
+	free(temp);
+	return adr;
+}
+int printStack(Poz stack)
+{
+	while (stack->next != NULL) {
+		printf(" %i", pop(stack)->value);
+	}
+	return PROGRAM_SUCCESS;
+}
+int findNode(Position P, int val, int D) {
+	
+	if (val > P->value) {
+		findNode(P->right, val, ++D);
+	}
+	else if (val < P->value) {
+		findNode(P->left, val, ++D);
+	}
+	else {
+		printf("\tValue found! Value:");
+		printNode(P);
+		printf("\n\tDepth of node: %i\n", D);
+	}
+	return PROGRAM_SUCCESS;
+}
+int getInput(int *val) 
+{
+	*val = 0;
+	char input[MAX_NUMBER_INT] = "\0";
+	memset(input, 0, MAX_NUMBER_INT);
+
+	printf("\tEnter the value of the node:    ");
+	fgets(input, sizeof(input), stdin);
+	
+	if (sscanf(input, " %i", val) == 1) {
+		return PROGRAM_SUCCESS;
+	}
+	return PROGRAM_FAIL;
 }
