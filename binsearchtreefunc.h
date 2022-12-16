@@ -38,3 +38,7 @@ Position pop(Poz prev);                       //funkcija za izbacivanje iz stoga
 int printStack(Poz stack);                    //funkcija za pop-anje svega iz stacka
 int findNode(Position P, int val, int D);     //funkcija za pronalazak nekog elementa
 int getInput(int* val);                       //funkcija za uzimanje vrijednosti s stdin
+Position deleteNode(Position P, int val);     //funkcija za brisanje jednog elementa ili vrijednosti iz stabla
+Position findMin(Position P);				  //funkcija za trazenje minimalnog elementa u stablu
+Position findMax(Position P);				  //funkcija za trazenje maksimalnog elementa u stablu
+Position deletetree(Position P);			  //funkcija za brisanje stabla

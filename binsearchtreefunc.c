@@ -130,10 +130,17 @@ int switchCase(Position *Padr, int choice) {
 		}
 		break;
 	case 2:
+		printf("\tEnter the value of the node:    ");
+		if (!getInput(&val))
+		{
+			*Padr = deleteNode(P, val);
+		}
+		else {
+			printf("Incorrect input!");
+		}
 		break;
 	case 3:
 		val = 0;
-
 		printf("\tEnter the value of the node:    ");
 		if (!getInput(&val)) 
 		{
@@ -164,6 +171,8 @@ int switchCase(Position *Padr, int choice) {
 		printf("\n");
 		break;
 	case 8:
+		*Padr = deletetree(P);
+		printf("Tree deleted!\n");
 		break;
 	}
 	return choice;
@@ -244,4 +253,53 @@ int getInput(int *val)
 		return PROGRAM_SUCCESS;
 	}
 	return PROGRAM_FAIL;
+}
+Position deleteNode(Position P, int val) {
+	if (P == NULL) {
+		return PROGRAM_SUCCESS;
+	}
+	if (P->value < val) {
+		P->right = deleteNode(P->right, val);
+	}
+	else if (P->value > val) {
+		P->left = deleteNode(P->left, val);
+	}
+	else if (P->right) {
+		P->value = findMin(P->right)->value;
+		P->right = deleteNode(P->right, P->value);
+	}
+	else if (P->left) {
+		P->value = findMax(P->right)->value;
+		P->left = deleteNode(P->left, P->value);
+	}
+	else {
+		free(P);
+		return NULL;
+	}
+	return P;
+}
+Position findMin(Position P) {
+	while (P != NULL && P->left != NULL) {
+		P = P->left;
+	}
+	return P;
+}
+Position findMax(Position P) {
+	while (P != NULL && P->right != NULL) {
+		P = P->right;
+	}
+	return P;
+}
+Position deletetree(Position P) {
+	if (P == NULL) {
+		return NULL;
+	}
+	if (P->right) {
+		P->right = deletetree(P->right);
+	}
+	if (P->left) {
+		P->left = deletetree(P->left);
+	}
+	free(P);
+	return NULL;
 }

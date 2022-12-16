@@ -22,5 +22,7 @@ int main() {
 		n = 1;
 		choice = switchCase(&P, choice);
 	}
+
+	deletetree(P);
 	return PROGRAM_SUCCESS;
 }
