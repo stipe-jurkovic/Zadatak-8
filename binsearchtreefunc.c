@@ -90,7 +90,7 @@ int printTreelevelorder(Position P) {
 }
 int printMenu() {
 
-	printf("\n");
+	printf("\n\n");
 	printf("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	printf("\n");
@@ -107,7 +107,7 @@ int printMenu() {
 	printf("\n");
 	printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 	printf("#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*\n\n");
-	printf("   Unos:    ");
+	printf("\tUnos:    ");
 	return PROGRAM_SUCCESS;
 }
 int switchCase(Position *Padr, int choice) {
@@ -151,26 +151,46 @@ int switchCase(Position *Padr, int choice) {
 		}
 		break;
 	case 4:
+		if (P == NULL) {
+			printf(" Tree is empty!\n");
+			break;
+		}
 		printf("\tInorder ispis:  ");
 		printTreeinorder(P);
 		printf("\n");
 		break;
 	case 5:
+		if (P == NULL) {
+			printf(" Tree is empty!\n");
+			break;
+		}
 		printf("\tPreorder ispis:  ");
 		printTreepreorder(P);
 		printf("\n");
 		break;
 	case 6:
+		if (P == NULL) {
+			printf(" Tree is empty!\n");
+			break;
+		}
 		printf("\tPostorder ispis:  ");
 		printTreepostorder(P);
 		printf("\n");
 		break;
 	case 7:
+		if (P == NULL) {
+			printf(" Tree is empty!\n");
+			break;
+		}
 		printf("\tPostorder ispis:  ");
 		printTreelevelorder(P);
 		printf("\n");
 		break;
 	case 8:
+		if (P == NULL) {
+			printf(" Tree wasn't deleted. Tree is empty!\n");
+			break;
+		}
 		*Padr = deletetree(P);
 		printf("Tree deleted!\n");
 		break;
